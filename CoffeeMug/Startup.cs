@@ -27,10 +27,8 @@ namespace CoffeeMug
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddDbContext<ProductsContext>(opt => opt.UseInMemoryDatabase("Products"));
-            services.AddDbContext<ProductsContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ProductsContext")));
+            services.AddDbContext<ProductsContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ProductsContext")));  //To connect to SqlServer, ConnectionString is specified in "appsettings.json", where is indicated localDb.
             services.AddControllers();
-            //services.AddMvc().AddXmlSerializerFormatters(); //To xml
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

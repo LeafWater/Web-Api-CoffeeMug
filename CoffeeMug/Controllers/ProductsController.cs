@@ -15,7 +15,7 @@ namespace CoffeeMug.Controllers
     {
         private readonly ProductsContext _context;
 
-        public ProductsController(ProductsContext context)
+        public ProductsController(ProductsContext context)      // The data is saved in local data base (which is automatically created by Migrations based on a model (commands which were used in Package Manager Console: Add-Migration Initial, Update-Database) ).
         {
             _context = context;
         }
