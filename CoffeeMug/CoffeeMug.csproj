@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200214152105_Initial2.cs" />
+    <Compile Remove="Migrations\20200214152105_Initial2.Designer.cs" />
+    <Compile Remove="Migrations\20200214200047_Initial.cs" />
+    <Compile Remove="Migrations\20200214200047_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200214200330_Initial.cs" />
+    <Compile Remove="Migrations\20200214200330_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200214221122_Initial2.cs" />
+    <Compile Remove="Migrations\20200214221122_Initial2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Xml" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />

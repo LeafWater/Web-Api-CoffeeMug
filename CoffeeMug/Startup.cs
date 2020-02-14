@@ -28,9 +28,7 @@ namespace CoffeeMug
         public void ConfigureServices(IServiceCollection services)
         {
            // services.AddDbContext<ProductsContext>(opt => opt.UseInMemoryDatabase("Products"));
-
             services.AddDbContext<ProductsContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("ProductsContext")));
-
             services.AddControllers();
             //services.AddMvc().AddXmlSerializerFormatters(); //To xml
         }

@@ -20,86 +20,56 @@ namespace CoffeeMug.Controllers
             _context = context;
         }
 
-        // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
-            return await _context.Product.ToListAsync();
+            return _context.Product.ToList();
         }
 
-        // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
-        {
-            var product = await _context.Product.FindAsync(id);
-
+        public ActionResult<Product> GetProduct(Guid id) {
+            var product = _context.Product.Find(id);
             if (product == null)
             {
-                return NotFound();
+                return NotFound("Product not found.");
             }
-
             return product;
         }
 
-        // PUT: api/Products/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        [HttpPost]
+        public Guid PostProduct(Product product)
         {
-            if (id != product.Id)
-            {
-                return BadRequest();
-            }
+            _context.Product.Add(product);
+            _context.SaveChanges();
+            return product.Id;
+        }
 
+        [HttpPut]
+        public ActionResult PutProduct(Product product)
+        {
             _context.Entry(product).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest("Probably not all values are written (id, name, price).");
             }
-
             return NoContent();
         }
 
-        // POST: api/Products
-        [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
-        {
-            _context.Product.Add(product);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
-        }
-
-        // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id)
+        public ActionResult<Product> DeleteProduct(Guid id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = _context.Product.Find(id);
             if (product == null)
             {
-                return NotFound();
+                return NotFound("Product not found.");
             }
-
             _context.Product.Remove(product);
-            await _context.SaveChangesAsync();
-
-            return product;
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Product.Any(e => e.Id == id);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }
